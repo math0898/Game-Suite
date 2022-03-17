@@ -72,10 +72,9 @@ public class MainGame extends Scene {
     @Override
     public void keyboardInput (KeyValues key, boolean pressed) {
         if (pressed) {
-            if (game.getThread().getPaused()) {
-                if (key == KeyValues.ARROW_UP || key == KeyValues.ARROW_DOWN) pauseScreen.move(key);
-                else if (key == KeyValues.ENTER) pauseScreen.enter(game);
-            }
+            if (game.getThread().getPaused())
+                if (key == KeyValues.ARROW_UP || key == KeyValues.ARROW_DOWN)
+                    pauseScreen.move(key);
             switch (key) {
                 case ESC -> game.getThread().setPaused(true);
                 case L -> System.out.printf("Average fps: %.1f\n", GraphicsThread.getFPS());
@@ -84,6 +83,9 @@ public class MainGame extends Scene {
                 case ARROW_DOWN -> game.getGameObject("Player Paddle").getAccel().add(new Vector(0, Paddle.PADDLE_ACCELERATION, 0));
             }
         } else { // Depressed key
+            if (game.getThread().getPaused())
+                if (key == KeyValues.ENTER)
+                    pauseScreen.enter(game);
             switch (key) {
                 case ARROW_UP -> game.getGameObject("Player Paddle").getAccel().add(new Vector(0, Paddle.PADDLE_ACCELERATION, 0));
                 case ARROW_DOWN -> game.getGameObject("Player Paddle").getAccel().add(new Vector(0, -1 * Paddle.PADDLE_ACCELERATION, 0));
