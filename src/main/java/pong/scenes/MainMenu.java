@@ -63,6 +63,7 @@ public class MainMenu extends Scene {
      */
     @Override
     public void mouseInput (Point pos, boolean pressed) {
-
+        if (pressed)
+            menu.enter(game);
     }
 }

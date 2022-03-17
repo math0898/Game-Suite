@@ -107,16 +107,14 @@ public class MainMenuDrawer implements DrawListener {
      */
     public void enter (Game game) {
         SugaThread thread = game.getThread();
-        if (thread.getPaused()) {
-            switch (current) {
-                case START -> {
-                    game.loadScene("Main Game");
-                    thread.setPaused(false);
-                }
-                case SETTINGS -> game.loadScene("Settings");
-                case QUIT -> thread.setStopped(true); // TODO: Stop graphics thread.
+        switch (current) {
+            case START -> {
+                System.out.println("Attempted to load!");
+                game.loadScene("Main Game");
+                thread.setPaused(false);
             }
-            current = MenuOptions.START;
+            case SETTINGS -> game.loadScene("Settings");
+            case QUIT -> thread.setStopped(true); // TODO: Stop graphics thread.
         }
     }
 
@@ -143,18 +141,15 @@ public class MainMenuDrawer implements DrawListener {
 
     /**
      * Called when trying to determine which main menu element to highlight.
-     *
-     * @param height The height of the screen.
      */
-    public void checkMouse (int height) {
-        height = height / 2;
-        Point current = mouseListener.getMousePos();
+    public void checkMouse () {
+        Point current = mouseListener.getMousePos(); // 450 600 750
         if (current == null) return;
         if (current.distance(lastPos) < 20) return;
         lastPos = (Point) current.clone();
-        if (lastPos.y <= height - 198) this.current = MenuOptions.START;
-        else if (lastPos.y <= height - 78) this.current = MenuOptions.SETTINGS;
-        else if (lastPos.y <= height + 42) this.current = MenuOptions.QUIT;
+        if (lastPos.y <= 525) this.current = MenuOptions.START;
+        else if (lastPos.y <= 675) this.current = MenuOptions.SETTINGS;
+        else this.current = MenuOptions.QUIT;
     }
 
     /**
@@ -166,38 +161,36 @@ public class MainMenuDrawer implements DrawListener {
      */
     @Override
     public void applyChanges (int width, int height, GraphicsPanel panel) { // todo change pixel sizes to be dynamic to screen, implement menu stuffs.
-        checkMouse(height);
-        int dx = 0;
+        checkMouse();
+        int dx;
+        int offset = 0;
         int y = 0;
         int[] scales = new int[]{ 5, 5, 5 };
         switch (current) {
             case START -> {
-                dx = (38 * 4) + 20;
+                offset = 21 * 8;
                 y = 450 + 20;
-                scales[0] = 12;
+                scales[0] = 8;
             }
             case SETTINGS -> {
-                dx = (34 * 4) + 20;
+                offset = 34 * 8;
                 y = 600 + 20;
-                scales[1] = 12;
+                scales[1] = 8;
             }
             case QUIT -> {
-                dx = (17 * 4) + 20;
+                offset = 17 * 8;
                 y = 750 + 20;
-                scales[2] = 12;
+                scales[2] = 8;
             }
         }
-        for (int dy = -16; dy <= 16; dy += 8) {
-            panel.setBigPixel(100 + dx, y + dy, 8, Color.WHITE);
-            panel.setBigPixel(100 - dx, y + dy, 8, Color.WHITE);
+        dx = offset + 40;
+        for (int dy = -16; dy <= 56; dy += 8) {
+            panel.setBigPixel((width / 10) + dx + offset, y + dy, 16, Color.WHITE);
+            panel.setBigPixel((width / 10) - dx + offset, y + dy, 16, Color.WHITE);
         }
         panel.addImage(width / 10, 50, 400, 100, title);
-        panel.addImage((width / 10) - (21 * scales[0]), 450, 42 * scales[0], 10 * scales[0], start);
-//        panel.addImage((width / 2) - (29 * (scales[1] / 2)), (height / 2) - 138, 29 * scales[1], 5 * scales[1], "/pong/Restart.png");
-//        panel.addImage((width / 2) - (34 * (scales[2] / 2)), (height / 2) - 18, 34 * scales[2], 5 * scales[2],"/pong/Settings.png");
-//        panel.addImage((width / 2) - (43 * (scales[3] / 2)), (height / 2) + 102, 43 * scales[3], 5 * scales[3],"/pong/MainMenu.png");
-//        panel.addImage((width / 2) - (17 * (scales[4] / 2)), (height / 2) + 222, 17 * scales[4], 5 * scales[4],"/pong/Quit.png");
-        panel.addImage((width / 10) - (34 * scales[1]), 600, 68 * scales[1], 10 * scales[1], settings);
-        panel.addImage((width / 10) - (17 * scales[2]), 750, 34 *  scales[2], 10 * scales[2], quit);
+        panel.addImage(width / 10, 450, 42 * scales[0], 10 * scales[0], start);
+        panel.addImage(width / 10, 600, 68 * scales[1], 10 * scales[1], settings);
+        panel.addImage(width / 10, 750, 34 *  scales[2], 10 * scales[2], quit);
     }
 }
