@@ -4,13 +4,12 @@ import sugaEngine.graphics.GraphicsPanel;
 import sugaEngine.graphics.DrawListener;
 import sugaEngine.input.GameKeyListener;
 import sugaEngine.input.GameMouseListener;
+import sugaEngine.input.KeyValues;
 import sugaEngine.physics.PhysicsEngine;
 import sugaEngine.threads.SugaThread;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.awt.event.MouseEvent;
+import java.util.*;
 
 /**
  * Games require a main game loop to run along with game components that need to be run every game cycle.
@@ -18,6 +17,12 @@ import java.util.Map;
  * @author Sugaku
  */
 public abstract class Game {
+
+    /**
+     * These are keys that are currently being held. That can be useful information in it of itself but this is used to
+     * ignore future key pressed messages.
+     */
+    protected List<Integer> pressedKeys = new ArrayList<>();
 
     /**
      * A list of game objects for this game. Their logic should be called every cycle.
@@ -108,7 +113,26 @@ public abstract class Game {
     /**
      * Processes inputs given by players. Is run during pause.
      */
-    public abstract void processInput ();
+    public void processInput () {
+        Stack<MouseEvent> mice = mouseListener.getEvents();
+        while (mice.size() > 0) {
+            MouseEvent e = mice.pop();
+            loadedScene.mouseInput(e.getPoint(), e.getButton() == 1);
+        }
+        Stack<Integer> keys = keyListener.getKeysPressed();
+        while (keys.size() > 0) {
+            int key = keys.pop();
+            if (pressedKeys.contains(key)) continue;
+            pressedKeys.add(key);
+            loadedScene.keyboardInput(KeyValues.toEnum(key), true);
+        }
+        keys = keyListener.getKeysDepressed();
+        while (keys.size() > 0) {
+            int key = keys.pop();
+            pressedKeys.remove((Integer) key);
+            loadedScene.keyboardInput(KeyValues.toEnum(key), false);
+        }
+    }
 
     /**
      * Adds a GameObject by the given name.
@@ -120,6 +144,16 @@ public abstract class Game {
         objects.put(name, object);
         panel.registerListener(object);
         physics.addObject(object);
+    }
+
+    /**
+     * Accessor method for game objects.
+     *
+     * @param name The name of the object to attempt to get.
+     * @return The found object or null.
+     */
+    public GameObject getGameObject (String name) {
+        return objects.get(name);
     }
 
     /**

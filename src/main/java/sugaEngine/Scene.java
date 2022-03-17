@@ -1,5 +1,6 @@
 package sugaEngine;
 
+import sugaEngine.input.KeyValues;
 import java.awt.*;
 
 /**
@@ -28,10 +29,10 @@ public abstract class Scene {
     /**
      * Passes a keyboard input into the scene.
      *
-     * @param key     The keycode of the key.
+     * @param key     The value of the key pressed.
      * @param pressed True if the key was pressed, false if it was released.
      */
-    public abstract void keyboardInput (int key, boolean pressed);
+    public abstract void keyboardInput (KeyValues key, boolean pressed);
 
     /**
      * Passes a mouse input into the scene.

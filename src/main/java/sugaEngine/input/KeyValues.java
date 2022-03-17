@@ -8,6 +8,11 @@ package sugaEngine.input;
 public enum KeyValues {
 
     /**
+     * The enter key maps to keycode '10'.
+     */
+    ENTER(10),
+
+    /**
      * The escape key maps to keycode 27.
      */
     ESC(27),
@@ -41,6 +46,11 @@ public enum KeyValues {
      * The 'd' key maps to keycode 68.
      */
     D(68),
+
+    /**
+     * The 'i' key maps to keycode 73.
+     */
+    I(73),
 
     /**
      * The 'l' key maps to keycode 76.
@@ -78,5 +88,18 @@ public enum KeyValues {
      */
     public int getValue () {
         return value;
+    }
+
+    /**
+     * Converts the given int keycode into an enum value from KeyValues.
+     *
+     * @param code The code of the key pressed.
+     * @return The enum value of the key if present, otherwise null.
+     */
+    public static KeyValues toEnum (int code) { // Might be a bit slow for input handling. Perhaps prioritize more popular keys.
+        for (KeyValues k : KeyValues.values())  //  This would also be a good level for key remapping.
+            if (k.getValue() == code)
+                return k;
+        return null;
     }
 }

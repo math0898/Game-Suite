@@ -1,6 +1,6 @@
 package main;
 
-import animus.ProjectAnimusGame;
+import pong.PongGame;
 import sugaEngine.input.GameKeyListener;
 import sugaEngine.input.GameMouseListener;
 import sugaEngine.graphics.Graphics2d;
@@ -18,6 +18,11 @@ import java.awt.*;
 public class Main {
 
     /**
+     * The frame that this is being run in.
+     */
+    public static JFrame frame;
+
+    /**
      * Runs the testing program for the graphics engine.
      *
      * @param args The arguments given to the java program.
@@ -25,14 +30,15 @@ public class Main {
     public static void main (String[] args) {
         Graphics2d panel = new Graphics2d();
         panel.setBackground(Color.BLACK);
-        JFrame frame = new JFrame("SugaEngine - PONG");
-        frame.setSize(1920, 1080);
+        frame = new JFrame("SugaEngine - PONG");
+        Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
+        frame.setSize(size.width, size.height);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().add(panel, BorderLayout.CENTER);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setUndecorated(true);
         frame.setVisible(true);
         new GraphicsThread(panel, 60).start();
-        new GameLogicThread(new ProjectAnimusGame(panel, new GameKeyListener(frame), new GameMouseListener(frame)), 60).start();
+        new GameLogicThread(new PongGame(panel, new GameKeyListener(frame), new GameMouseListener(frame)), 60).start();
     }
 }
