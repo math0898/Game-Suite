@@ -2,17 +2,28 @@ plugins {
     id 'java'
 }
 
+def secrets = new Properties()
+file("secrets.properties").withInputStream { secrets.load(it) }
+
 group 'io.github.math0898'
 version 'v0.0.1'
 
 repositories {
     mavenCentral()
+    maven {
+        name = "GitHubPackages"
+        url = uri("https://maven.pkg.github.com/math0898/GraphicsEngine")
+        credentials {
+            username = project.findProperty("gpr.user") ?: secrets.getProperty("USERNAME")
+            password = project.findProperty("gpr.key") ?: secrets.getProperty("TOKEN")
+        }
+    }
 }
 
 dependencies {
-    implementation 'org.lwjgl:lwjgl-openal:3.3.0'
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+    implementation 'io.github.math0898:suga-engine:v1.1.1-BETA'
 }
 
 test {
@@ -21,8 +32,6 @@ test {
 
 jar {
     manifest {
-        attributes(
-                'Main-Class':'main.Main'
-        )
+        attributes 'Main-Class':'main.Main'
     } from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
 }
