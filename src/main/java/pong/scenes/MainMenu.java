@@ -16,6 +16,11 @@ import java.io.IOException;
 public class MainMenu extends Scene {
 
     /**
+     * The MainMenu drawing listener.
+     */
+    private MainMenuDrawer menu;
+
+    /**
      * Loads this scene into the given game.
      *
      * @param game The game to load this scene into.
@@ -26,7 +31,8 @@ public class MainMenu extends Scene {
         super.load(game);
         game.clear();
         try {
-            game.addDrawingListener(new MainMenuDrawer());
+            menu = new MainMenuDrawer(game.getMouseListener());
+            game.addDrawingListener(menu);
         } catch (IOException exception) {
             return false;
         }
@@ -41,7 +47,12 @@ public class MainMenu extends Scene {
      */
     @Override
     public void keyboardInput (KeyValues key, boolean pressed) {
-        if (key == KeyValues.ESC && !pressed) game.loadScene("Main Game");
+        if (pressed) {
+            if (key == KeyValues.ARROW_DOWN || key == KeyValues.ARROW_UP)
+                menu.move(key);
+        } else {
+            if (key == KeyValues.ENTER) menu.enter(game);
+        }
     }
 
     /**
