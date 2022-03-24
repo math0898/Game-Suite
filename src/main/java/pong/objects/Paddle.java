@@ -1,8 +1,8 @@
 package pong.objects;
 
 import pong.PongGame;
-import sugaEngine.Game;
-import sugaEngine.GameObject;
+import sugaEngine.game.GameInterface;
+import sugaEngine.game.GameObject;
 import sugaEngine.graphics.GraphicsPanel;
 import sugaEngine.physics.HitBox;
 import sugaEngine.physics.Vector;
@@ -37,7 +37,7 @@ public class Paddle extends PongGameObject {
      * @param pos The starting position of the Paddle.
      * @param game The game that this paddle belongs to.
      */
-    public Paddle (Vector pos, Game game) {
+    public Paddle (Vector pos, GameInterface game) {
         super(false, 10, 100, game);
         this.pos = pos;
     }

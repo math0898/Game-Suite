@@ -1,6 +1,6 @@
 package pong.ui;
 
-import sugaEngine.Game;
+import sugaEngine.game.GameInterface;
 import sugaEngine.graphics.DrawListener;
 import sugaEngine.graphics.GraphicsPanel;
 import sugaEngine.input.GameMouseListener;
@@ -26,7 +26,7 @@ public class PauseMenu implements DrawListener {
     /**
      * The game instance associated with this PauseMenu.
      */
-    private final Game game;
+    private final GameInterface game;
 
     /**
      * The currently highlighted element of the pause menu.
@@ -76,7 +76,7 @@ public class PauseMenu implements DrawListener {
      *
      * @param game Sometimes scenes need to be loaded from this method. Hence, the need to pass the game instance.
      */
-    public void enter (Game game) {
+    public void enter (GameInterface game) {
         SugaThread thread = game.getThread();
         if (thread.getPaused()) {
             switch (highlighted) {
@@ -102,7 +102,7 @@ public class PauseMenu implements DrawListener {
      * @param mouseListener The mouse listener that will be associated with this PauseMenu.
      * @param game          The game instance of this pause menu.
      */
-    public PauseMenu (GameMouseListener mouseListener, Game game) {
+    public PauseMenu (GameMouseListener mouseListener, GameInterface game) {
         this.mouseListener = mouseListener;
         this.game = game;
     }

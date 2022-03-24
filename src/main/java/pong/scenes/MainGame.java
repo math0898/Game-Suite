@@ -9,8 +9,8 @@ import pong.objects.Wall;
 import pong.ui.DividingLine;
 import pong.ui.PauseMenu;
 import pong.ui.ScoreCounter;
-import sugaEngine.Game;
-import sugaEngine.Scene;
+import sugaEngine.game.GameInterface;
+import sugaEngine.game.Scene;
 import sugaEngine.graphics.Graphics2d;
 import sugaEngine.input.KeyValues;
 import sugaEngine.physics.Vector;
@@ -37,7 +37,7 @@ public class MainGame extends Scene {
      * @return True if loading was successful. Otherwise, false.
      */
     @Override
-    public boolean load (Game game) {
+    public boolean load (GameInterface game) {
         super.load(game);
         game.clear();
         game.addDrawingListener(new DividingLine(game));

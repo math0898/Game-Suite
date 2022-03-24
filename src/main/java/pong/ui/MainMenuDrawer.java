@@ -1,6 +1,6 @@
 package pong.ui;
 
-import sugaEngine.Game;
+import sugaEngine.game.GameInterface;
 import sugaEngine.graphics.DrawListener;
 import sugaEngine.graphics.GraphicsPanel;
 import sugaEngine.input.GameMouseListener;
@@ -105,7 +105,7 @@ public class MainMenuDrawer implements DrawListener {
      *
      * @param game Sometimes scenes need to be loaded from this method. Hence, the need to pass the game instance.
      */
-    public void enter (Game game) {
+    public void enter (GameInterface game) {
         SugaThread thread = game.getThread();
         switch (current) {
             case START -> {

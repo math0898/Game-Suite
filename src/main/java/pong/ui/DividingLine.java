@@ -1,6 +1,6 @@
 package pong.ui;
 
-import sugaEngine.Game;
+import sugaEngine.game.GameInterface;
 import sugaEngine.graphics.DrawListener;
 import sugaEngine.graphics.GraphicsPanel;
 
@@ -16,14 +16,14 @@ public class DividingLine implements DrawListener {
     /**
      * Reference to the run time instance of game this listener is working for.
      */
-    private final Game game;
+    private final GameInterface game;
 
     /**
      * Creates a new DividingLine Drawer which requires access to the PongGame instance for pause screen color changes.
      *
      * @param game The game this DrawListener is attached to.
      */
-    public DividingLine (Game game) {
+    public DividingLine (GameInterface game) {
         super();
         this.game = game;
     }

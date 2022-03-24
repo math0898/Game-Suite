@@ -2,10 +2,10 @@ package pong;
 
 import pong.scenes.MainGame;
 import pong.scenes.MainMenu;
-import sugaEngine.AIAgent;
-import sugaEngine.Game;
-import sugaEngine.GameObject;
-import sugaEngine.input.GameKeyListener;
+import sugaEngine.game.AIAgent;
+import sugaEngine.game.BasicGame;
+import sugaEngine.game.GameObject;
+import sugaEngine.input.GameKeyListenerInterface;
 import sugaEngine.input.GameMouseListener;
 import sugaEngine.graphics.GraphicsPanel;
 
@@ -17,7 +17,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  *
  * @author Sugaku
  */
-public class PongGame extends Game {
+public class PongGame extends BasicGame {
 
     /**
      * The player score counter.
@@ -41,7 +41,7 @@ public class PongGame extends Game {
      * @param listener The game key listener being used by this game object.
      * @param mouseListener The mouse listener being using by this game object.
      */
-    public PongGame (GraphicsPanel panel, GameKeyListener listener, GameMouseListener mouseListener) {
+    public PongGame (GraphicsPanel panel, GameKeyListenerInterface listener, GameMouseListener mouseListener) {
         super(panel, listener, mouseListener);
         scenes.put("Main Game", new MainGame());
         scenes.put("Main Menu", new MainMenu());
@@ -102,13 +102,13 @@ public class PongGame extends Game {
      * @param target The player that is 'serving' the ball.
      */
     public void serve (String target) {
-        double posY = new Random().nextDouble() * (panel.getHeight() / 4.0);
+        double posY = new Random().nextDouble() * (((GraphicsPanel) panel).getHeight() / 4.0);
         double velY = new Random().nextBoolean() ? 6.0 : -6.0;
-        if (velY < 0) posY += panel.getHeight() / 2.0;
+        if (velY < 0) posY += ((GraphicsPanel) panel).getHeight() / 2.0;
         GameObject ball = objects.get("Ball");
         if (ball == null) return;
         ball.getPos().setY(posY);
-        ball.getPos().setX(panel.getWidth() / 2.0);
+        ball.getPos().setX(((GraphicsPanel) panel).getWidth() / 2.0);
         ball.getVelocity().setY(velY);
         ball.getVelocity().setX(target.equals("AI") ? -6.0 : 6.0);
     }

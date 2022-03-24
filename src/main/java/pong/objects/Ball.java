@@ -1,7 +1,7 @@
 package pong.objects;
 
 import pong.PongGame;
-import sugaEngine.Game;
+import sugaEngine.game.GameInterface;
 import sugaEngine.graphics.GraphicsPanel;
 import sugaEngine.physics.Collidable;
 import sugaEngine.physics.HitBox;
@@ -18,7 +18,7 @@ public class Ball extends PongGameObject {
      * @param vel The starting velocity of the ball.
      * @param game The game that this ball belongs to.
      */
-    public Ball (Vector pos, Vector vel, Game game) {
+    public Ball (Vector pos, Vector vel, GameInterface game) {
         super(false, 20, 20, game);
         this.pos = pos;
         this.velocity = vel;

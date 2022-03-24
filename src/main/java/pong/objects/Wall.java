@@ -1,7 +1,7 @@
 package pong.objects;
 
 import pong.PongGame;
-import sugaEngine.Game;
+import sugaEngine.game.GameInterface;
 import sugaEngine.graphics.GraphicsPanel;
 import sugaEngine.physics.HitBox;
 import sugaEngine.physics.Vector;
@@ -22,7 +22,7 @@ public class Wall extends PongGameObject {
      * @param pos       The position of the wall object.
      * @param game      The game that this wall belongs to.
      */
-    public Wall (double width, Vector pos, Game game) {
+    public Wall (double width, Vector pos, GameInterface game) {
         super(true, width, 100, game);
         this.pos = pos;
     }

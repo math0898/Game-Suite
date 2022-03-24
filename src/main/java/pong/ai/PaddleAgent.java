@@ -1,8 +1,8 @@
 package pong.ai;
 
 import pong.objects.Paddle;
-import sugaEngine.AIAgent;
-import sugaEngine.GameObject;
+import sugaEngine.game.AIAgent;
+import sugaEngine.game.GameObject;
 
 /**
  * Wobbly boi.

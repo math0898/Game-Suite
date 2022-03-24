@@ -1,7 +1,7 @@
 package pong.objects;
 
 import pong.PongGame;
-import sugaEngine.GameObject;
+import sugaEngine.game.GameObject;
 import sugaEngine.graphics.GraphicsPanel;
 import sugaEngine.physics.HitBox;
 import sugaEngine.physics.Vector;

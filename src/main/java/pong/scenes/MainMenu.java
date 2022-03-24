@@ -1,8 +1,8 @@
 package pong.scenes;
 
 import pong.ui.MainMenuDrawer;
-import sugaEngine.Game;
-import sugaEngine.Scene;
+import sugaEngine.game.GameInterface;
+import sugaEngine.game.Scene;
 import sugaEngine.input.KeyValues;
 
 import java.awt.*;
@@ -27,7 +27,7 @@ public class MainMenu extends Scene {
      * @return True if loading was successful. Otherwise, false.
      */
     @Override
-    public boolean load (Game game) {
+    public boolean load (GameInterface game) {
         super.load(game);
         game.clear();
         try {
