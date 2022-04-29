@@ -2,6 +2,7 @@ package pong;
 
 import pong.scenes.MainGame;
 import pong.scenes.MainMenu;
+import suga.engine.game.Game;
 import sugaEngine.game.AIAgent;
 import sugaEngine.game.BasicGame;
 import sugaEngine.game.GameObject;
@@ -17,7 +18,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  *
  * @author Sugaku
  */
-public class PongGame extends BasicGame {
+public class PongGame implements Game {
 
     /**
      * The player score counter.
