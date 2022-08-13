@@ -1,19 +1,17 @@
-package pong.objects;
+package io.github.math0898.pong.objects;
 
-import pong.PongGame;
-import sugaEngine.game.GameInterface;
-import sugaEngine.graphics.GraphicsPanel;
-import sugaEngine.physics.HitBox;
-import sugaEngine.physics.Vector;
-
-import java.awt.*;
+import suga.engine.game.Game;
+import suga.engine.game.objects.BasicGameObject;
+import suga.engine.graphics.GraphicsPanel;
+import suga.engine.physics.Vector;
+import suga.engine.physics.hitboxes.HitBox;
 
 /**
  * Walls are used to prevent paddles from exiting the screen as well as preventing the ball from exiting the screen.
  *
  * @author Sugaku
  */
-public class Wall extends PongGameObject {
+public class Wall extends BasicGameObject { // todo: Essentially requires a rewrite.
 
     /**
      * Creates a new Collidable object with the immutable property set to either true or false.
@@ -22,9 +20,8 @@ public class Wall extends PongGameObject {
      * @param pos       The position of the wall object.
      * @param game      The game that this wall belongs to.
      */
-    public Wall (double width, Vector pos, GameInterface game) {
-        super(true, width, 100, game);
-        this.pos = pos;
+    public Wall (double width, Vector pos, Game game) {
+//        this.pos = pos;
     }
 
     /**
@@ -36,7 +33,7 @@ public class Wall extends PongGameObject {
      */
     @Override
     public void applyChanges (int width, int height, GraphicsPanel panel) {
-        if (PongGame.getDevMode()) drawHitBox(panel, Color.GREEN);
+//        if (PongGame.getDevMode()) drawHitBox(panel, Color.GREEN);
     }
 
     /**
@@ -44,7 +41,6 @@ public class Wall extends PongGameObject {
      *
      * @param obj The object that this collidable collided with.
      */
-    @Override
     public void collision (HitBox obj) {
 
     }
@@ -54,7 +50,6 @@ public class Wall extends PongGameObject {
      *
      * @param obj The object that this collidable is touching.
      */
-    @Override
     public void touch (HitBox obj) {
 
     }
@@ -64,7 +59,6 @@ public class Wall extends PongGameObject {
      *
      * @return The name of this object.
      */
-    @Override
     public String getName () {
         return "Wall";
     }

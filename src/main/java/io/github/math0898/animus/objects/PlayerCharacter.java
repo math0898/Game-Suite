@@ -1,4 +1,4 @@
-//package animus.objects;
+//package io.github.math0898.animus.objects;
 //
 //import sugaEngine.GameObject;
 //import sugaEngine.graphics.GraphicsPanel;
@@ -8,7 +8,7 @@
 //import java.awt.*;
 //
 ///**
-// * The main character for this ProjectAnimus.
+// * The io.github.math0898.main character for this ProjectAnimus.
 // *
 // * @author Sugaku
 // */

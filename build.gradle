@@ -20,10 +20,20 @@ repositories {
     }
 }
 
+compileJava {
+    options.release = 18
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(18)
+    }
+}
+
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
-    implementation 'io.github.math0898:suga-engine:v2.1.1-ALPHA-1'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.0'
+    implementation 'io.github.math0898:suga-engine:v2.2.2'
 }
 
 test {
@@ -32,6 +42,6 @@ test {
 
 jar {
     manifest {
-        attributes 'Main-Class':'main.Main'
+        attributes 'Main-Class':'io.github.math0898.main.Main'
     } from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
 }

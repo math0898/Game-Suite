@@ -1,11 +1,13 @@
-package pong.ui;
+package io.github.math0898.pong.ui;
 
-import sugaEngine.game.GameInterface;
-import sugaEngine.graphics.DrawListener;
-import sugaEngine.graphics.GraphicsPanel;
-import sugaEngine.input.GameMouseListener;
-import sugaEngine.input.KeyValues;
-import sugaEngine.threads.SugaThread;
+import suga.engine.GameEngine;
+import suga.engine.game.Game;
+import suga.engine.graphics.DrawListener;
+import suga.engine.graphics.GraphicsPanel;
+import suga.engine.input.keyboard.KeyValue;
+import suga.engine.input.mouse.GameMouseListener;
+import suga.engine.logger.Level;
+import suga.engine.threads.SugaThread;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -14,7 +16,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * The MainMenuDrawer handles the drawing of the main menu elements such as title, start, settings, and quit buttons.
+ * The MainMenuDrawer handles the drawing of the io.github.math0898.main menu elements such as title, start, settings, and quit buttons.
  *
  * @author Sugaku
  */
@@ -105,7 +107,7 @@ public class MainMenuDrawer implements DrawListener {
      *
      * @param game Sometimes scenes need to be loaded from this method. Hence, the need to pass the game instance.
      */
-    public void enter (GameInterface game) {
+    public void enter (Game game) {
         SugaThread thread = game.getThread();
         switch (current) {
             case START -> {
@@ -123,14 +125,14 @@ public class MainMenuDrawer implements DrawListener {
      *
      * @param input The key that was pressed to move the menu selection.
      */
-    public void move (KeyValues input) {
-        if (input == KeyValues.ARROW_DOWN) {
+    public void move (KeyValue input) {
+        if (input == KeyValue.ARROW_DOWN) {
             switch (current) {
                 case QUIT -> current = MenuOptions.START;
                 case START -> current = MenuOptions.SETTINGS;
                 case SETTINGS -> current = MenuOptions.QUIT;
             }
-        } else if (input == KeyValues.ARROW_UP) {
+        } else if (input == KeyValue.ARROW_UP) {
             switch (current) {
                 case START -> current = MenuOptions.QUIT;
                 case SETTINGS -> current = MenuOptions.START;
@@ -160,7 +162,7 @@ public class MainMenuDrawer implements DrawListener {
      * @param panel  The panel to apply changes to.
      */
     @Override
-    public void applyChanges (int width, int height, GraphicsPanel panel) { // todo change pixel sizes to be dynamic to screen, implement menu stuffs.
+    public void applyChanges (int width, int height, GraphicsPanel panel) { // todo change pixel sizes to be dynamic to screen, implement menu stuffs..
         checkMouse();
         int dx;
         int offset = 0;

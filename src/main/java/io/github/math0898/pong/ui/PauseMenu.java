@@ -1,16 +1,16 @@
-package pong.ui;
+package io.github.math0898.pong.ui;
 
-import sugaEngine.game.GameInterface;
-import sugaEngine.graphics.DrawListener;
-import sugaEngine.graphics.GraphicsPanel;
-import sugaEngine.input.GameMouseListener;
-import sugaEngine.input.KeyValues;
-import sugaEngine.threads.SugaThread;
+import suga.engine.game.Game;
+import suga.engine.graphics.DrawListener;
+import suga.engine.graphics.GraphicsPanel;
+import suga.engine.input.keyboard.KeyValue;
+import suga.engine.input.mouse.GameMouseListener;
+import suga.engine.threads.SugaThread;
 
 import java.awt.*;
 
 /**
- * The PauseMenu is used by players to restart the game, exit pong, return to main menu, or to resume the game. Should
+ * The PauseMenu is used by players to restart the game, exit io.github.math0898.pong, return to io.github.math0898.main menu, or to resume the game. Should
  * support mouse clicks and buttons should change on hover.
  *
  * @author Sugaku
@@ -26,7 +26,7 @@ public class PauseMenu implements DrawListener {
     /**
      * The game instance associated with this PauseMenu.
      */
-    private final GameInterface game;
+    private final Game game;
 
     /**
      * The currently highlighted element of the pause menu.
@@ -61,7 +61,7 @@ public class PauseMenu implements DrawListener {
         SETTINGS,
 
         /**
-         * The 'main menu' option in the pause menu.
+         * The 'io.github.math0898.main menu' option in the pause menu.
          */
         MAIN_MENU,
 
@@ -76,7 +76,7 @@ public class PauseMenu implements DrawListener {
      *
      * @param game Sometimes scenes need to be loaded from this method. Hence, the need to pass the game instance.
      */
-    public void enter (GameInterface game) {
+    public void enter (Game game) {
         SugaThread thread = game.getThread();
         if (thread.getPaused()) {
             switch (highlighted) {
@@ -102,7 +102,7 @@ public class PauseMenu implements DrawListener {
      * @param mouseListener The mouse listener that will be associated with this PauseMenu.
      * @param game          The game instance of this pause menu.
      */
-    public PauseMenu (GameMouseListener mouseListener, GameInterface game) {
+    public PauseMenu (GameMouseListener mouseListener, Game game) {
         this.mouseListener = mouseListener;
         this.game = game;
     }
@@ -130,8 +130,8 @@ public class PauseMenu implements DrawListener {
      *
      * @param input The key that was pressed to move the menu selection.
      */
-    public void move (KeyValues input) {
-        if (input == KeyValues.ARROW_DOWN) {
+    public void move (KeyValue input) {
+        if (input == KeyValue.ARROW_DOWN) {
             switch (highlighted) {
                 case QUIT -> highlighted = MenuOptions.CONTINUE;
                 case CONTINUE -> highlighted = MenuOptions.RESTART;
@@ -139,7 +139,7 @@ public class PauseMenu implements DrawListener {
                 case SETTINGS -> highlighted = MenuOptions.MAIN_MENU;
                 case MAIN_MENU -> highlighted = MenuOptions.QUIT;
             }
-        } else if (input == KeyValues.ARROW_UP) {
+        } else if (input == KeyValue.ARROW_UP) {
             switch (highlighted) {
                 case RESTART -> highlighted = MenuOptions.CONTINUE;
                 case SETTINGS -> highlighted = MenuOptions.RESTART;
