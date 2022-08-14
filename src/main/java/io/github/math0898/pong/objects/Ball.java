@@ -40,7 +40,7 @@ public class Ball extends BasicPhysical implements Collidable, DrawListener, Gam
     public Ball (Vector pos, Vector vel, Game game) {
         super(pos, vel, Vector.ZERO.clone(), 1);
         this.game = game;
-        hitBox = new SquareHitBox(40, 40, pos);
+        hitBox = new SquareHitBox(20, 20, pos);
     }
 
     /**
@@ -87,6 +87,12 @@ public class Ball extends BasicPhysical implements Collidable, DrawListener, Gam
         if (obj instanceof Paddle) {
             vel.scale(-1.0, 1.0, 1.0);
             vel.add(new Vector(vel.getX() > 0 ? 0.2 : -0.2, 0, 0));
+            int x = obj.getPos().getX() <= 540 ? // todo This depends on screen size.
+                    (int) (pos.getX() + (10 / 2)) + (20 / 2) :
+                    (int) (pos.getX() - (10 / 2)) - (20 / 2);
+            pos.setX(x);
+            vel.setY(pos.getY() - obj.getPos().getY()); // Change vertical velocity depending on where the ball hit the paddle.
+            vel.scale(1.0, 0.2, 1.0);
         } else if (obj instanceof Wall) vel.scale(1.0, -1.0, 1.0);
     }
 

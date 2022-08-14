@@ -108,7 +108,6 @@ public class MainMenuDrawer implements DrawListener {
     public void enter (Game game) {
         switch (current) {
             case START -> {
-                System.out.println("Attempted to load!");
                 game.loadScene("Main Game");
                 game.getThread().setPaused(false);
             }

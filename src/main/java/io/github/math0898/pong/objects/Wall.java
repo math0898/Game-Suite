@@ -30,7 +30,7 @@ public class Wall extends BasicPhysical implements GameObject, Collidable, DrawL
      */
     public Wall (double width, Vector pos) {
         super(pos, Vector.ZERO.clone(), Vector.ZERO.clone(), Integer.MAX_VALUE);
-        hitBox = new SquareHitBox(width, 100);
+        hitBox = new SquareHitBox(width, 100, pos);
     }
 
     /**

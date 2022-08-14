@@ -2,8 +2,10 @@ package io.github.math0898.pong;
 
 import io.github.math0898.pong.scenes.MainGame;
 import io.github.math0898.pong.scenes.MainMenu;
+import suga.engine.GameEngine;
 import suga.engine.game.BasicGame;
 import suga.engine.game.objects.GameObject;
+import suga.engine.logger.Level;
 import suga.engine.physics.Physical;
 
 import java.util.*;
@@ -111,5 +113,14 @@ public class PongGame extends BasicGame {
      */
     public static void setDevMode (boolean dev) {
         devMode = dev;
+    }
+
+    /**
+     * Debug method used to report the position of all items.
+     */
+    public void reportObjects () {
+        ArrayList<Map.Entry<String, GameObject>> obj = new ArrayList<>(objects.entrySet());
+        for (Map.Entry<String, GameObject> e : obj)
+            GameEngine.getLogger().log(e.getKey() + ": " + e.getValue().getCollider().getHitBox().getPos(), Level.DEBUG);
     }
 }

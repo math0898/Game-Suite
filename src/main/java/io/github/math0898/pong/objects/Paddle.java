@@ -147,18 +147,9 @@ public class Paddle extends BasicPhysical implements DrawListener, Collidable, G
      */
     @Override
     public void collision (Collidable obj) {
-        double width = ((SquareHitBox) hitBox).getWidth();
         double height = ((SquareHitBox) hitBox).getHeight();
-        final double ballWidth = 40; // todo Could cause problems in the future.
-        final double wallHeight = 100;
-        if (obj instanceof Ball collided) {
-            int x = (int) (collided.getVelocity().getX() > 0 ?
-                    (int) (pos.getX() + (width / 2)) + (ballWidth / 2) :
-                    (int) (pos.getX() - (width / 2)) - (ballWidth / 2));
-            collided.getPos().setX(x);
-            collided.getVelocity().setY(obj.getPos().getY() - pos.getY());
-            collided.getVelocity().scale(1.0, 0.2, 1.0);
-        } else if (obj instanceof Wall collided) {
+        final double wallHeight = 100; // todo Could cause problems in the future.
+        if (obj instanceof Wall collided) {
             if (pos.getY() - collided.getPos().getY() > 0 && vel.getY() < 0) {
                 pos.setY(collided.getPos().getY() + (wallHeight / 2.0) + (height / 2.0));
                 vel.setY(0);

@@ -6,7 +6,7 @@ def secrets = new Properties()
 file("secrets.properties").withInputStream { secrets.load(it) }
 
 group 'io.github.math0898'
-version 'v0.0.1'
+version 'v1.0.0'
 
 repositories {
     mavenCentral()
@@ -33,7 +33,7 @@ java {
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.0'
-    implementation 'io.github.math0898:suga-engine:2.3.1'
+    implementation 'io.github.math0898:suga-engine:2.3.2'
 }
 
 test {

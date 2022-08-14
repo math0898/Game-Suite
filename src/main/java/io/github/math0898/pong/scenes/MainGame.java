@@ -84,7 +84,10 @@ public class MainGame implements Scene {
                 if (key == KeyValue.ARROW_UP || key == KeyValue.ARROW_DOWN)
                     pauseScreen.move(key);
             switch (key) {
-                case L -> GameEngine.getLogger().log(String.format("Average fps: %.1f", GraphicsThread.getFPS()), Level.DEBUG);
+                case L -> {
+                    GameEngine.getLogger().log(String.format("Average fps: %.1f", GraphicsThread.getFPS()), Level.DEBUG);
+                    ((PongGame) game).reportObjects();
+                }
                 case I -> PongGame.setDevMode(!PongGame.getDevMode());
                 case ARROW_UP -> ((Physical) game.getGameObject("Player Paddle")).getAcceleration().add(new Vector(0, -1 * Paddle.PADDLE_ACCELERATION, 0));
                 case ARROW_DOWN -> ((Physical) game.getGameObject("Player Paddle")).getAcceleration().add(new Vector(0, Paddle.PADDLE_ACCELERATION, 0));

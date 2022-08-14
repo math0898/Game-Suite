@@ -29,11 +29,6 @@ public class Main extends GameEngine {
         PongGame game = new PongGame();
         GameEngine.launchGameWindow(size.width, size.height, "SugaEngine - PONG", false,
                 panel, Color.BLACK, 60, 60, new StackGameKeyListener(), new BasicMouseListener(), game);
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            GameEngine.getLogger().log("Main: Failed to wait before loading main menu.", Level.WARNING);
-        }
         game.loadScene("Main Menu");
     }
 }
