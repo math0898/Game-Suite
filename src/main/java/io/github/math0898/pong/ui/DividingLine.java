@@ -1,13 +1,13 @@
-package pong.ui;
+package io.github.math0898.pong.ui;
 
-import sugaEngine.game.GameInterface;
-import sugaEngine.graphics.DrawListener;
-import sugaEngine.graphics.GraphicsPanel;
+import suga.engine.game.Game;
+import suga.engine.graphics.DrawListener;
+import suga.engine.graphics.GraphicsPanel;
 
 import java.awt.*;
 
 /**
- * The DividingLine class's job is simply to draw the dividing line seen in the center of pong games.
+ * The DividingLine class's job is simply to draw the dividing line seen in the center of io.github.math0898.pong games.
  *
  * @author Sugaku
  */
@@ -16,14 +16,14 @@ public class DividingLine implements DrawListener {
     /**
      * Reference to the run time instance of game this listener is working for.
      */
-    private final GameInterface game;
+    private final Game game;
 
     /**
      * Creates a new DividingLine Drawer which requires access to the PongGame instance for pause screen color changes.
      *
      * @param game The game this DrawListener is attached to.
      */
-    public DividingLine (GameInterface game) {
+    public DividingLine (Game game) {
         super();
         this.game = game;
     }

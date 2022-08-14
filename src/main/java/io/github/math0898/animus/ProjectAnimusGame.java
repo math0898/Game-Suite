@@ -1,8 +1,8 @@
-//package animus;
+//package io.github.math0898.animus;
 //
-//import animus.objects.BoxyBox;
-//import animus.objects.FloatyCube;
-//import animus.objects.PlayerCharacter;
+//import io.github.math0898.animus.objects.BoxyBox;
+//import io.github.math0898.animus.objects.FloatyCube;
+//import io.github.math0898.animus.objects.PlayerCharacter;
 //import sugaEngine.Game;
 //import sugaEngine.input.GameKeyListener;
 //import sugaEngine.input.GameMouseListener;
@@ -19,7 +19,7 @@
 //import java.util.Stack;
 //
 ///**
-// * Main execution point for the animus game including aspects such as the GameLoop.
+// * Main execution point for the io.github.math0898.animus game including aspects such as the GameLoop.
 // *
 // * @author Sugaku
 // */
@@ -55,7 +55,7 @@
 //    }
 //
 //    /**
-//     * The main logic loop for the game. Will be called depending on the rate of the logic thread.
+//     * The io.github.math0898.main logic loop for the game. Will be called depending on the rate of the logic thread.
 //     */
 //    @Override
 //    public void loop () {

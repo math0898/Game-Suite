@@ -1,14 +1,12 @@
-package pong;
+package io.github.math0898.pong;
 
-import pong.scenes.MainGame;
-import pong.scenes.MainMenu;
-import suga.engine.game.Game;
-import sugaEngine.game.AIAgent;
-import sugaEngine.game.BasicGame;
-import sugaEngine.game.GameObject;
-import sugaEngine.input.GameKeyListenerInterface;
-import sugaEngine.input.GameMouseListener;
-import sugaEngine.graphics.GraphicsPanel;
+import io.github.math0898.pong.scenes.MainGame;
+import io.github.math0898.pong.scenes.MainMenu;
+import suga.engine.GameEngine;
+import suga.engine.game.BasicGame;
+import suga.engine.game.objects.GameObject;
+import suga.engine.logger.Level;
+import suga.engine.physics.Physical;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -18,7 +16,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  *
  * @author Sugaku
  */
-public class PongGame implements Game {
+public class PongGame extends BasicGame {
 
     /**
      * The player score counter.
@@ -36,17 +34,12 @@ public class PongGame implements Game {
     private static boolean devMode = false;
 
     /**
-     * Creates a new game with the given panel used to register GameObjects as draw listeners to.
-     *
-     * @param panel The panel that GameObjects should register as a listener to.
-     * @param listener The game key listener being used by this game object.
-     * @param mouseListener The mouse listener being using by this game object.
+     * Creates a new PongGame. Relies on setters for the GraphicsPanel and input listeners.
      */
-    public PongGame (GraphicsPanel panel, GameKeyListenerInterface listener, GameMouseListener mouseListener) {
-        super(panel, listener, mouseListener);
+    public PongGame () {
+        super();
         scenes.put("Main Game", new MainGame());
         scenes.put("Main Menu", new MainMenu());
-        loadScene("Main Menu");
     }
 
     /**
@@ -65,16 +58,6 @@ public class PongGame implements Game {
      */
     public AtomicInteger getAiScorer () {
         return aiScore;
-    }
-
-    /**
-     * The main logic loop for the game. Will be called depending on the rate of the logic thread.
-     */
-    @Override
-    public void loop () {
-        physics.checkCollisions();
-        for (AIAgent a : agents) a.logic();
-        for (GameObject gO : objects.values()) gO.runLogic();
     }
 
     /**
@@ -103,15 +86,15 @@ public class PongGame implements Game {
      * @param target The player that is 'serving' the ball.
      */
     public void serve (String target) {
-        double posY = new Random().nextDouble() * (((GraphicsPanel) panel).getHeight() / 4.0);
+        double posY = new Random().nextDouble() * panel.getHeight() / 4.0;
         double velY = new Random().nextBoolean() ? 6.0 : -6.0;
-        if (velY < 0) posY += ((GraphicsPanel) panel).getHeight() / 2.0;
+        if (velY < 0) posY += panel.getHeight() / 2.0;
         GameObject ball = objects.get("Ball");
         if (ball == null) return;
-        ball.getPos().setY(posY);
-        ball.getPos().setX(((GraphicsPanel) panel).getWidth() / 2.0);
-        ball.getVelocity().setY(velY);
-        ball.getVelocity().setX(target.equals("AI") ? -6.0 : 6.0);
+        ((Physical) ball).getPos().setY(posY);
+        ((Physical) ball).getPos().setX(panel.getWidth() / 2.0);
+        ((Physical) ball).getVelocity().setY(velY);
+        ((Physical) ball).getVelocity().setX(target.equals("AI") ? -6.0 : 6.0);
     }
 
     /**
@@ -130,5 +113,14 @@ public class PongGame implements Game {
      */
     public static void setDevMode (boolean dev) {
         devMode = dev;
+    }
+
+    /**
+     * Debug method used to report the position of all items.
+     */
+    public void reportObjects () {
+        ArrayList<Map.Entry<String, GameObject>> obj = new ArrayList<>(objects.entrySet());
+        for (Map.Entry<String, GameObject> e : obj)
+            GameEngine.getLogger().log(e.getKey() + ": " + e.getValue().getCollider().getHitBox().getPos(), Level.DEBUG);
     }
 }

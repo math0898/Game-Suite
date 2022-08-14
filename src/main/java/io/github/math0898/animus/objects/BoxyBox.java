@@ -1,4 +1,4 @@
-//package animus.objects;
+//package io.github.math0898.animus.objects;
 //
 //import sugaEngine.GameObject;
 //import sugaEngine.graphics.GraphicsPanel;
@@ -7,26 +7,25 @@
 //
 //import java.awt.*;
 //
-//public class FloatyCube extends GameObject {
+//public class BoxyBox extends GameObject {
 //
 //    /**
-//     * Creates a new FloatyCube game object.
+//     * The color of this cube.
 //     */
-//    public FloatyCube () {
-//        super(false, 20, 20);
-//        pos = new Vector(11, 11, 0);
-//        velocity = new Vector(-1, -1, 0);
-//        accel = new Vector(0,0,0);
-//    }
+//    private final Color color;
 //
 //    /**
-//     * Called every logic frame to run the logic on this GameObject.
+//     * Creates a new Collidable object with the immutable property set to either true or false.
+//     *
+//     * @param pos       The position of the object.
+//     * @param width     The width of the HitBox.
+//     * @param height    The height of the HitBox.
+//     * @param color     The color of the box.
 //     */
-//    @Override
-//    public void runLogic () {
-//        if (pos.getX() + 10 >= 1920 || pos.getX() - 10 <= 0) velocity.scale(-1, 1, 1);
-//        if (pos.getY() + 10 >= 1080 || pos.getY() - 10 <= 0) velocity.scale(1, -1, 1);
-//        super.runLogic();
+//    public BoxyBox (Vector pos, double width, double height, Color color) {
+//        super(false, width, height);
+//        this.pos = pos;
+//        this.color = color;
 //    }
 //
 //    /**
@@ -38,9 +37,7 @@
 //     */
 //    @Override
 //    public void applyChanges (int width, int height, GraphicsPanel panel) {
-//        for (int i = Math.max(0, (int) pos.getX() - 10); i < Math.min(width, pos.getX() + 10); i++)
-//            for (int j = Math.max(0, (int) pos.getY() - 10); j < Math.min(height, pos.getY() + 10); j++)
-//                panel.setPixel(i, j, Color.CYAN);
+//        panel.setRectangle((int) pos.getX() - (int) (this.width / 2), (int) pos.getY() - (int) (this.height / 2), (int) this.width, (int) this.height, color);
 //    }
 //
 //    /**
@@ -50,7 +47,7 @@
 //     */
 //    @Override
 //    public void collision (HitBox obj) {
-//        velocity.scale(-1);
+//        obj.getPos().setY((pos.getY() - (this.height / 2)) - (obj.getHeight() / 2));
 //    }
 //
 //    /**
@@ -60,7 +57,7 @@
 //     */
 //    @Override
 //    public void touch (HitBox obj) {
-//        velocity.scale(-1);
+//
 //    }
 //
 //    /**
@@ -70,6 +67,6 @@
 //     */
 //    @Override
 //    public String getName() {
-//        return "Floaty Cube";
+//        return "Box";
 //    }
 //}

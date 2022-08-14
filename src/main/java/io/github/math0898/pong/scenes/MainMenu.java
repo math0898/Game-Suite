@@ -1,24 +1,31 @@
-package pong.scenes;
+package io.github.math0898.pong.scenes;
 
-import pong.ui.MainMenuDrawer;
-import sugaEngine.game.GameInterface;
-import sugaEngine.game.Scene;
-import sugaEngine.input.KeyValues;
+import io.github.math0898.pong.ui.MainMenuDrawer;
+import suga.engine.GameEngine;
+import suga.engine.game.Game;
+import suga.engine.game.Scene;
+import suga.engine.input.keyboard.KeyValue;
+import suga.engine.logger.Level;
 
 import java.awt.*;
 import java.io.IOException;
 
 /**
- * The main menu for the PongGame.
+ * The io.github.math0898.main menu for the PongGame.
  *
  * @author Sugaku
  */
-public class MainMenu extends Scene {
+public class MainMenu implements Scene {
 
     /**
      * The MainMenu drawing listener.
      */
     private MainMenuDrawer menu;
+
+    /**
+     * The game this scene is attached to.
+     */
+    private Game game;
 
     /**
      * Loads this scene into the given game.
@@ -27,13 +34,15 @@ public class MainMenu extends Scene {
      * @return True if loading was successful. Otherwise, false.
      */
     @Override
-    public boolean load (GameInterface game) {
-        super.load(game);
+    public boolean load (Game game) {
+        GameEngine.getLogger().log("MainMenu: Loaded main menu.", Level.DEBUG);
+        this.game = game;
         game.clear();
         try {
             menu = new MainMenuDrawer(game.getMouseListener());
             game.addDrawingListener(menu);
         } catch (IOException exception) {
+            GameEngine.getLogger().log(exception, Level.EXCEPTION);
             return false;
         }
         return true;
@@ -46,12 +55,12 @@ public class MainMenu extends Scene {
      * @param pressed True if the key was pressed, false if it was released.
      */
     @Override
-    public void keyboardInput (KeyValues key, boolean pressed) {
+    public void keyboardInput (KeyValue key, boolean pressed) {
         if (pressed) {
-            if (key == KeyValues.ARROW_DOWN || key == KeyValues.ARROW_UP)
+            if (key == KeyValue.ARROW_DOWN || key == KeyValue.ARROW_UP)
                 menu.move(key);
         } else {
-            if (key == KeyValues.ENTER) menu.enter(game);
+            if (key == KeyValue.ENTER) menu.enter(game);
         }
     }
 

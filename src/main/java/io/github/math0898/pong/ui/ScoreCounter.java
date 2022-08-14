@@ -1,8 +1,8 @@
-package pong.ui;
+package io.github.math0898.pong.ui;
 
-import sugaEngine.graphics.DrawListener;
-import sugaEngine.graphics.GraphicsPanel;
-import sugaEngine.physics.Vector;
+import suga.engine.graphics.DrawListener;
+import suga.engine.graphics.GraphicsPanel;
+import suga.engine.physics.Vector;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +13,6 @@ import java.util.concurrent.atomic.AtomicInteger;
  *
  * @author Sugaku
  */
-@SuppressWarnings("ClassCanBeRecord")
 public class ScoreCounter implements DrawListener {
 
     /**

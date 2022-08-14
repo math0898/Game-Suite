@@ -1,4 +1,4 @@
-//package animus;
+//package io.github.math0898.animus;
 //
 //import sugaEngine.Game;
 //import sugaEngine.graphics.DrawListener;
