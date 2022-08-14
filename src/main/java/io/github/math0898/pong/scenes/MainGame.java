@@ -18,7 +18,7 @@ import suga.engine.threads.GraphicsThread;
 import java.awt.*;
 
 /**
- * The io.github.math0898.main game is the game with two paddles, a ball, goals, walls etc.
+ * The main game is the game with two paddles, a ball, goals, walls etc.
  *
  * @author Sugaku
  */

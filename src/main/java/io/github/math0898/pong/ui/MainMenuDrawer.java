@@ -6,8 +6,6 @@ import suga.engine.graphics.DrawListener;
 import suga.engine.graphics.GraphicsPanel;
 import suga.engine.input.keyboard.KeyValue;
 import suga.engine.input.mouse.GameMouseListener;
-import suga.engine.logger.Level;
-import suga.engine.threads.SugaThread;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -16,7 +14,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * The MainMenuDrawer handles the drawing of the io.github.math0898.main menu elements such as title, start, settings, and quit buttons.
+ * The MainMenuDrawer handles the drawing of the main menu elements such as title, start, settings, and quit buttons.
  *
  * @author Sugaku
  */
@@ -108,15 +106,14 @@ public class MainMenuDrawer implements DrawListener {
      * @param game Sometimes scenes need to be loaded from this method. Hence, the need to pass the game instance.
      */
     public void enter (Game game) {
-        SugaThread thread = game.getThread();
         switch (current) {
             case START -> {
                 System.out.println("Attempted to load!");
                 game.loadScene("Main Game");
-                thread.setPaused(false);
+                game.getThread().setPaused(false);
             }
             case SETTINGS -> game.loadScene("Settings");
-            case QUIT -> thread.setStopped(true); // TODO: Stop graphics thread.
+            case QUIT -> GameEngine.stop();
         }
     }
 

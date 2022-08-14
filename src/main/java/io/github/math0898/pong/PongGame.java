@@ -4,7 +4,6 @@ import io.github.math0898.pong.scenes.MainGame;
 import io.github.math0898.pong.scenes.MainMenu;
 import suga.engine.game.BasicGame;
 import suga.engine.game.objects.GameObject;
-import suga.engine.graphics.GraphicsPanel;
 import suga.engine.physics.Physical;
 
 import java.util.*;
@@ -28,7 +27,7 @@ public class PongGame extends BasicGame {
     private AtomicInteger aiScore = new AtomicInteger(0);
 
     /**
-     * Whether the game io.github.math0898.pong is currently in dev mode or not.
+     * Whether the game pong is currently in dev mode or not.
      */
     private static boolean devMode = false;
 
@@ -39,7 +38,6 @@ public class PongGame extends BasicGame {
         super();
         scenes.put("Main Game", new MainGame());
         scenes.put("Main Menu", new MainMenu());
-//        loadScene("Main Menu");
     }
 
     /**
@@ -86,13 +84,13 @@ public class PongGame extends BasicGame {
      * @param target The player that is 'serving' the ball.
      */
     public void serve (String target) {
-        double posY = new Random().nextDouble() * ((GraphicsPanel) panel).getHeight() / 4.0;
+        double posY = new Random().nextDouble() * panel.getHeight() / 4.0;
         double velY = new Random().nextBoolean() ? 6.0 : -6.0;
-        if (velY < 0) posY += ((GraphicsPanel) panel).getHeight() / 2.0;
+        if (velY < 0) posY += panel.getHeight() / 2.0;
         GameObject ball = objects.get("Ball");
         if (ball == null) return;
         ((Physical) ball).getPos().setY(posY);
-        ((Physical) ball).getPos().setX(((GraphicsPanel) panel).getWidth() / 2.0);
+        ((Physical) ball).getPos().setX(panel.getWidth() / 2.0);
         ((Physical) ball).getVelocity().setY(velY);
         ((Physical) ball).getVelocity().setX(target.equals("AI") ? -6.0 : 6.0);
     }
