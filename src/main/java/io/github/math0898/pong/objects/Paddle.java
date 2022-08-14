@@ -5,6 +5,7 @@ import suga.engine.game.Game;
 import suga.engine.game.objects.GameObject;
 import suga.engine.graphics.DrawListener;
 import suga.engine.graphics.GraphicsPanel;
+import suga.engine.physics.BasicPhysical;
 import suga.engine.physics.Vector;
 import suga.engine.physics.collidables.Collidable;
 import suga.engine.physics.hitboxes.HitBox;
@@ -17,7 +18,7 @@ import java.awt.*;
  *
  * @author Sugaku
  */
-public class Paddle implements DrawListener, Collidable, GameObject { // todo extend BasicPhysical.
+public class Paddle extends BasicPhysical implements DrawListener, Collidable, GameObject {
 
     /**
      * Max velocity of the paddle vertically.
@@ -40,21 +41,6 @@ public class Paddle implements DrawListener, Collidable, GameObject { // todo ex
     private final Game game;
 
     /**
-     * The current position of this paddle.
-     */
-    private Vector pos;
-
-    /**
-     * The current velocity of this paddle.
-     */
-    private Vector vel;
-
-    /**
-     * The current acceleration of this paddle.
-     */
-    private Vector accel;
-
-    /**
      * The HitBox of this paddle.
      */
     private HitBox hitBox;
@@ -66,9 +52,7 @@ public class Paddle implements DrawListener, Collidable, GameObject { // todo ex
      * @param game The game that this paddle is a part of.
      */
     public Paddle (Vector pos, Game game) {
-        this.pos = pos;
-        this.vel = Vector.ZERO.clone();
-        this.vel = Vector.ZERO.clone();
+        super(pos, Vector.ZERO.clone(), Vector.ZERO.clone(), 1);
         this.game = game;
         this.hitBox = new SquareHitBox(10, 100, pos);
     }
@@ -204,93 +188,10 @@ public class Paddle implements DrawListener, Collidable, GameObject { // todo ex
      */
     @Override
     public Collidable clone () {
-        return null;
-    }
-
-    /**
-     * Gets the center position of this collidable object. Modifying this position object will modify the position of
-     * the object.
-     *
-     * @return The center position of this collidable object.
-     */
-    @Override
-    public Vector getPos () {
-        return null;
-    }
-
-    /**
-     * Sets the position of this collidable object. Modifying the position object after passing it will modify the
-     * position of the object.
-     *
-     * @param pos The new position for this collidable object.
-     */
-    @Override
-    public void setPos (Vector pos) {
-
-    }
-
-    /**
-     * Gets the current velocity of this physical object. Modifying this velocity object will modify the velocity of the
-     * object.
-     *
-     * @return The current velocity of this object.
-     */
-    @Override
-    public Vector getVelocity () {
-        return null;
-    }
-
-    /**
-     * Sets the current velocity of this physical object. Modifying the velocity object after passing it will modify the
-     * velocity of the object.
-     *
-     * @param vel The new velocity for this object.
-     */
-    @Override
-    public void setVelocity (Vector vel) {
-
-    }
-
-    /**
-     * Gets the current acceleration of this physical object. Modifying this acceleration object will modify the
-     * acceleration of the object.
-     *
-     * @return The current acceleration of this object.
-     */
-    @Override
-    public Vector getAcceleration () {
-        return null;
-    }
-
-    /**
-     * Sets the current acceleration of this physical object. Modifying the acceleration object after passing it will
-     * modify the acceleration of the object.
-     *
-     * @param accel The new acceleration for this object.
-     */
-    @Override
-    public void setAcceleration (Vector accel) {
-
-    }
-
-    /**
-     * Accessor method for the mass of this object. Mass numbers larger than int max should be considered unmovable.
-     *
-     * @return The mass of this object.
-     */
-    @Override
-    public double getMass () {
-        return 0;
-    }
-
-    /**
-     * Sets the mass of this object.
-     *
-     * @param mass The new mass of this object.
-     */
-    @Override
-    public void setMass (double mass) {
-
+        try {
+            return (Collidable) super.clone();
+        } catch (CloneNotSupportedException ignored) {}
+        return new Paddle(pos.clone(), game);
     }
 
     /**

@@ -1,5 +1,6 @@
 package io.github.math0898.pong.ui;
 
+import suga.engine.GameEngine;
 import suga.engine.game.Game;
 import suga.engine.graphics.DrawListener;
 import suga.engine.graphics.GraphicsPanel;
@@ -90,7 +91,7 @@ public class PauseMenu implements DrawListener {
                     thread.setPaused(false);
                     game.loadScene("Main Menu");
                 }
-                case QUIT -> thread.setStopped(true); // TODO: Stop graphics thread.
+                case QUIT -> GameEngine.stop();
             }
             highlighted = MenuOptions.CONTINUE;
         }

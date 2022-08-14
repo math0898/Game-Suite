@@ -1,16 +1,20 @@
 package io.github.math0898.pong.scenes;
 
 import io.github.math0898.pong.PongGame;
+import io.github.math0898.pong.ai.PaddleAgent;
 import io.github.math0898.pong.objects.Ball;
 import io.github.math0898.pong.objects.Goal;
 import io.github.math0898.pong.objects.Paddle;
+import io.github.math0898.pong.objects.Wall;
 import io.github.math0898.pong.ui.DividingLine;
 import io.github.math0898.pong.ui.PauseMenu;
 import io.github.math0898.pong.ui.ScoreCounter;
+import suga.engine.GameEngine;
 import suga.engine.game.Game;
 import suga.engine.game.Scene;
 import suga.engine.graphics.Graphics2d;
 import suga.engine.input.keyboard.KeyValue;
+import suga.engine.logger.Level;
 import suga.engine.physics.Physical;
 import suga.engine.physics.Vector;
 import suga.engine.threads.GraphicsThread;
@@ -54,10 +58,10 @@ public class MainGame implements Scene {
         Ball ball = new Ball(new Vector((panel.getWidth() * 3.0) / 4.0, panel.getHeight() / 2.0, 0), new Vector(-6.0, 0, 0), game);
         game.addGameObject("Ball", ball);
         game.addGameObject("AI Paddle", aiPaddle);
-//        game.addAgent(new PaddleAgent(aiPaddle, ball));
+        game.addAgent(new PaddleAgent(aiPaddle, ball));
         game.addGameObject("Player Paddle", new Paddle(new Vector((panel.getWidth() * 7.0) / 8.0, panel.getHeight() / 2.0, 0), game));
-//        game.addGameObject("Wall1", new Wall(panel.getWidth(), new Vector(panel.getWidth() / 2.0, -50, 0), game));
-//        game.addGameObject("Wall2", new Wall(panel.getWidth(), new Vector(panel.getWidth() / 2.0,  panel.getHeight() + 49, 0), game));
+        game.addGameObject("Wall1", new Wall(panel.getWidth(), new Vector(panel.getWidth() / 2.0, -50, 0)));
+        game.addGameObject("Wall2", new Wall(panel.getWidth(), new Vector(panel.getWidth() / 2.0,  panel.getHeight() + 49, 0)));
         game.addGameObject("Player Goal",
                 new Goal(new Vector(((panel.getWidth() * 7.0) / 8.0) + 150, panel.getHeight() / 2.0, 0), panel.getHeight(), (PongGame) game));
         game.addGameObject("AI Goal",
@@ -80,17 +84,16 @@ public class MainGame implements Scene {
                 if (key == KeyValue.ARROW_UP || key == KeyValue.ARROW_DOWN)
                     pauseScreen.move(key);
             switch (key) {
-                case ESC -> game.getThread().setPaused(true);
-                case L -> System.out.printf("Average fps: %.1f\n", GraphicsThread.getFPS());
+                case L -> GameEngine.getLogger().log(String.format("Average fps: %.1f", GraphicsThread.getFPS()), Level.DEBUG);
                 case I -> PongGame.setDevMode(!PongGame.getDevMode());
                 case ARROW_UP -> ((Physical) game.getGameObject("Player Paddle")).getAcceleration().add(new Vector(0, -1 * Paddle.PADDLE_ACCELERATION, 0));
                 case ARROW_DOWN -> ((Physical) game.getGameObject("Player Paddle")).getAcceleration().add(new Vector(0, Paddle.PADDLE_ACCELERATION, 0));
             }
         } else { // Depressed key
             if (game.getThread().getPaused())
-                if (key == KeyValue.ENTER)
-                    pauseScreen.enter(game);
+                if (key == KeyValue.ENTER) pauseScreen.enter(game);
             switch (key) {
+                case ESC -> game.getThread().setPaused(!game.getThread().getPaused());
                 case ARROW_UP -> ((Physical) game.getGameObject("Player Paddle")).getAcceleration().add(new Vector(0, Paddle.PADDLE_ACCELERATION, 0));
                 case ARROW_DOWN -> ((Physical) game.getGameObject("Player Paddle")).getAcceleration().add(new Vector(0, -1 * Paddle.PADDLE_ACCELERATION, 0));
             }

@@ -6,6 +6,7 @@ import suga.engine.game.objects.GameObject;
 import suga.engine.graphics.DrawListener;
 import suga.engine.graphics.GraphicsPanel;
 import suga.engine.logger.Level;
+import suga.engine.physics.BasicPhysical;
 import suga.engine.physics.Vector;
 import suga.engine.physics.collidables.Collidable;
 import suga.engine.physics.hitboxes.HitBox;
@@ -16,17 +17,12 @@ import suga.engine.physics.hitboxes.SquareHitBox;
  *
  * @author Sugaku
  */
-public class Goal implements Collidable, GameObject, DrawListener {
+public class Goal extends BasicPhysical implements Collidable, GameObject, DrawListener {
 
     /**
      * The game this goal is part of.
      */
     private final PongGame game;
-
-    /**
-     * The current position of this goal.
-     */
-    private Vector pos;
 
     /**
      * The HitBox of this goal.
@@ -41,8 +37,8 @@ public class Goal implements Collidable, GameObject, DrawListener {
      * @param game   The PongGame instance this goal is tied to.
      */
     public Goal (Vector pos, int height, PongGame game) {
+        super(pos, Vector.ZERO.clone(), Vector.ZERO.clone(), Integer.MAX_VALUE);
         this.game = game;
-        this.pos = pos;
         hitBox = new SquareHitBox(200, height, pos);
     }
 
@@ -155,100 +151,6 @@ public class Goal implements Collidable, GameObject, DrawListener {
             return (Collidable) super.clone();
         } catch (CloneNotSupportedException ignored) {}
         return new Goal(pos.clone(), 1080, game); // Generally the height of the goal won't matter when determining collision results.
-    }
-
-    /**
-     * Gets the center position of this collidable object. Modifying this position object will modify the position of
-     * the object.
-     *
-     * @return The center position of this collidable object.
-     */
-    @Override
-    public Vector getPos () {
-        return pos;
-    }
-
-    /**
-     * Sets the position of this collidable object. Modifying the position object after passing it will modify the
-     * position of the object.
-     *
-     * @param pos The new position for this collidable object.
-     */
-    @Override
-    public void setPos (Vector pos) {
-        this.pos = pos;
-    }
-
-    /**
-     * Gets the current velocity of this physical object. Modifying this velocity object will modify the velocity of the
-     * object.
-     *
-     * @return The current velocity of this object.
-     */
-    @Override
-    public Vector getVelocity () {
-        return Vector.ZERO.clone();
-    }
-
-    /**
-     * Sets the current velocity of this physical object. Modifying the velocity object after passing it will modify the
-     * velocity of the object.
-     *
-     * @param vel The new velocity for this object.
-     */
-    @Override
-    public void setVelocity (Vector vel) {
-
-    }
-
-    /**
-     * Gets the current acceleration of this physical object. Modifying this acceleration object will modify the
-     * acceleration of the object.
-     *
-     * @return The current acceleration of this object.
-     */
-    @Override
-    public Vector getAcceleration () {
-        return Vector.ZERO.clone();
-    }
-
-    /**
-     * Sets the current acceleration of this physical object. Modifying the acceleration object after passing it will
-     * modify the acceleration of the object.
-     *
-     * @param accel The new acceleration for this object.
-     */
-    @Override
-    public void setAcceleration (Vector accel) {
-
-    }
-
-    /**
-     * Accessor method for the mass of this object. Mass numbers larger than int max should be considered unmovable.
-     *
-     * @return The mass of this object.
-     */
-    @Override
-    public double getMass () {
-        return Integer.MAX_VALUE;
-    }
-
-    /**
-     * Sets the mass of this object.
-     *
-     * @param mass The new mass of this object.
-     */
-    @Override
-    public void setMass (double mass) {
-
-    }
-
-    /**
-     * Updates this object's location based on the acceleration, velocity, and current position.
-     */
-    @Override
-    public void update () {
-
     }
 
     /**

@@ -5,7 +5,7 @@ import suga.engine.game.Game;
 import suga.engine.game.objects.GameObject;
 import suga.engine.graphics.DrawListener;
 import suga.engine.graphics.GraphicsPanel;
-import suga.engine.physics.Physical;
+import suga.engine.physics.BasicPhysical;
 import suga.engine.physics.Vector;
 import suga.engine.physics.collidables.Collidable;
 import suga.engine.physics.hitboxes.HitBox;
@@ -18,22 +18,12 @@ import java.awt.*;
  *
  * @author Sugaku
  */
-public class Ball implements Physical, Collidable, DrawListener, GameObject {
+public class Ball extends BasicPhysical implements Collidable, DrawListener, GameObject {
 
     /**
      * The game this ball is part of.
      */
     private final Game game;
-
-    /**
-     * The current position of this ball.
-     */
-    private Vector pos;
-
-    /**
-     * The current velocity of this ball.
-     */
-    private Vector vel;
 
     /**
      * The HitBox of this ball.
@@ -48,8 +38,7 @@ public class Ball implements Physical, Collidable, DrawListener, GameObject {
      * @param game The game that this ball is part of.
      */
     public Ball (Vector pos, Vector vel, Game game) {
-        this.pos = pos;
-        this.vel = vel;
+        super(pos, vel, Vector.ZERO.clone(), 1);
         this.game = game;
         hitBox = new SquareHitBox(40, 40, pos);
     }
@@ -123,100 +112,6 @@ public class Ball implements Physical, Collidable, DrawListener, GameObject {
             return (Collidable) super.clone();
         } catch (CloneNotSupportedException ignored) {}
         return new Ball(pos.clone(), vel.clone(), game);
-    }
-
-    /**
-     * Gets the center position of this collidable object. Modifying this position object will modify the position of
-     * the object.
-     *
-     * @return The center position of this collidable object.
-     */
-    @Override
-    public Vector getPos () {
-        return pos;
-    }
-
-    /**
-     * Sets the position of this collidable object. Modifying the position object after passing it will modify the
-     * position of the object.
-     *
-     * @param pos The new position for this collidable object.
-     */
-    @Override
-    public void setPos (Vector pos) {
-        this.pos = pos;
-    }
-
-    /**
-     * Gets the current velocity of this physical object. Modifying this velocity object will modify the velocity of the
-     * object.
-     *
-     * @return The current velocity of this object.
-     */
-    @Override
-    public Vector getVelocity () {
-        return vel;
-    }
-
-    /**
-     * Sets the current velocity of this physical object. Modifying the velocity object after passing it will modify the
-     * velocity of the object.
-     *
-     * @param vel The new velocity for this object.
-     */
-    @Override
-    public void setVelocity (Vector vel) {
-        this.vel = vel;
-    }
-
-    /**
-     * Gets the current acceleration of this physical object. Modifying this acceleration object will modify the
-     * acceleration of the object.
-     *
-     * @return The current acceleration of this object.
-     */
-    @Override
-    public Vector getAcceleration () {
-        return Vector.ZERO.clone();
-    }
-
-    /**
-     * Sets the current acceleration of this physical object. Modifying the acceleration object after passing it will
-     * modify the acceleration of the object.
-     *
-     * @param accel The new acceleration for this object.
-     */
-    @Override
-    public void setAcceleration (Vector accel) {
-
-    }
-
-    /**
-     * Accessor method for the mass of this object. Mass numbers larger than int max should be considered unmovable.
-     *
-     * @return The mass of this object.
-     */
-    @Override
-    public double getMass () {
-        return 1;
-    }
-
-    /**
-     * Sets the mass of this object.
-     *
-     * @param mass The new mass of this object.
-     */
-    @Override
-    public void setMass (double mass) {
-
-    }
-
-    /**
-     * Updates this object's location based on the acceleration, velocity, and current position.
-     */
-    @Override
-    public void update () {
-        this.pos.add(vel);
     }
 
     /**
