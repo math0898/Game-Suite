@@ -47,11 +47,6 @@ public class MainMenuDrawer implements DrawListener {
     private final BufferedImage start;
 
     /**
-     * The settings image as a BufferedImage, so it can remain in RAM.
-     */
-    private final BufferedImage settings;
-
-    /**
      * The quit image as a BufferedImage, so it can remain in RAM.
      */
     private final BufferedImage quit;
@@ -67,11 +62,6 @@ public class MainMenuDrawer implements DrawListener {
          * The 'start' option in the main menu.
          */
         START,
-
-        /**
-         * The 'settings' option in the main menu.
-         */
-        SETTINGS,
 
         /**
          * The 'quit' option in the main menu.
@@ -92,9 +82,6 @@ public class MainMenuDrawer implements DrawListener {
         stream = this.getClass().getResourceAsStream("/pong/Start.png");
         if (stream != null) start = ImageIO.read(stream);
         else throw new IOException("Failed to access /pong/Start.png resource!");
-        stream = this.getClass().getResourceAsStream("/pong/Settings.png");
-        if (stream != null) settings = ImageIO.read(stream);
-        else throw new IOException("Failed to access /pong/Settings.png resource!");
         stream = this.getClass().getResourceAsStream("/pong/Quit.png");
         if (stream != null) quit = ImageIO.read(stream);
         else throw new IOException("Failed to access /pong/Quit.png resource!");
@@ -111,7 +98,6 @@ public class MainMenuDrawer implements DrawListener {
                 game.loadScene("Main Game");
                 game.getThread().setPaused(false);
             }
-            case SETTINGS -> game.loadScene("Settings");
             case QUIT -> GameEngine.stop();
         }
     }
@@ -125,14 +111,12 @@ public class MainMenuDrawer implements DrawListener {
         if (input == KeyValue.ARROW_DOWN) {
             switch (current) {
                 case QUIT -> current = MenuOptions.START;
-                case START -> current = MenuOptions.SETTINGS;
-                case SETTINGS -> current = MenuOptions.QUIT;
+                case START -> current = MenuOptions.QUIT;
             }
         } else if (input == KeyValue.ARROW_UP) {
             switch (current) {
                 case START -> current = MenuOptions.QUIT;
-                case SETTINGS -> current = MenuOptions.START;
-                case QUIT -> current = MenuOptions.SETTINGS;
+                case QUIT -> current = MenuOptions.START;
             }
         }
     }
@@ -146,7 +130,6 @@ public class MainMenuDrawer implements DrawListener {
         if (current.distance(lastPos) < 20) return;
         lastPos = (Point) current.clone();
         if (lastPos.y <= 525) this.current = MenuOptions.START;
-        else if (lastPos.y <= 675) this.current = MenuOptions.SETTINGS;
         else this.current = MenuOptions.QUIT;
     }
 
@@ -163,22 +146,17 @@ public class MainMenuDrawer implements DrawListener {
         int dx;
         int offset = 0;
         int y = 0;
-        int[] scales = new int[]{ 5, 5, 5 };
+        int[] scales = new int[]{ 5, 5 };
         switch (current) {
             case START -> {
                 offset = 21 * 8;
                 y = 450 + 20;
                 scales[0] = 8;
             }
-            case SETTINGS -> {
-                offset = 34 * 8;
-                y = 600 + 20;
-                scales[1] = 8;
-            }
             case QUIT -> {
                 offset = 17 * 8;
-                y = 750 + 20;
-                scales[2] = 8;
+                y = 600 + 20;
+                scales[1] = 8;
             }
         }
         dx = offset + 40;
@@ -188,7 +166,6 @@ public class MainMenuDrawer implements DrawListener {
         }
         panel.addImage(width / 10, 50, 400, 100, title);
         panel.addImage(width / 10, 450, 42 * scales[0], 10 * scales[0], start);
-        panel.addImage(width / 10, 600, 68 * scales[1], 10 * scales[1], settings);
-        panel.addImage(width / 10, 750, 34 *  scales[2], 10 * scales[2], quit);
+        panel.addImage(width / 10, 600, 34 *  scales[1], 10 * scales[1], quit);
     }
 }

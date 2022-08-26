@@ -11,7 +11,7 @@ import suga.engine.threads.SugaThread;
 import java.awt.*;
 
 /**
- * The PauseMenu is used by players to restart the game, exit io.github.math0898.pong, return to io.github.math0898.main menu, or to resume the game. Should
+ * The PauseMenu is used by players to restart the game, exit pong, return to main menu, or to resume the game. Should
  * support mouse clicks and buttons should change on hover.
  *
  * @author Sugaku
@@ -57,12 +57,7 @@ public class PauseMenu implements DrawListener {
         RESTART,
 
         /**
-         * The 'settings' option in the pause menu.
-         */
-        SETTINGS,
-
-        /**
-         * The 'io.github.math0898.main menu' option in the pause menu.
+         * The 'main menu' option in the pause menu.
          */
         MAIN_MENU,
 
@@ -86,7 +81,6 @@ public class PauseMenu implements DrawListener {
                     thread.setPaused(false);
                     game.loadScene("Main Game");
                 }
-                case SETTINGS -> game.loadScene("Settings");
                 case MAIN_MENU -> {
                     thread.setPaused(false);
                     game.loadScene("Main Menu");
@@ -121,7 +115,7 @@ public class PauseMenu implements DrawListener {
         lastPos = (Point) current.clone();
         if (lastPos.y <= height - 198) highlighted = MenuOptions.CONTINUE;
         else if (lastPos.y <= height - 78) highlighted = MenuOptions.RESTART;
-        else if (lastPos.y <= height + 42) highlighted = MenuOptions.SETTINGS;
+//        else if (lastPos.y <= height + 42) highlighted = MenuOptions.SETTINGS;
         else if (lastPos.y <= height + 162) highlighted = MenuOptions.MAIN_MENU;
         else highlighted = MenuOptions.QUIT;
     }
@@ -136,15 +130,13 @@ public class PauseMenu implements DrawListener {
             switch (highlighted) {
                 case QUIT -> highlighted = MenuOptions.CONTINUE;
                 case CONTINUE -> highlighted = MenuOptions.RESTART;
-                case RESTART -> highlighted = MenuOptions.SETTINGS;
-                case SETTINGS -> highlighted = MenuOptions.MAIN_MENU;
+                case RESTART -> highlighted = MenuOptions.MAIN_MENU;
                 case MAIN_MENU -> highlighted = MenuOptions.QUIT;
             }
         } else if (input == KeyValue.ARROW_UP) {
             switch (highlighted) {
                 case RESTART -> highlighted = MenuOptions.CONTINUE;
-                case SETTINGS -> highlighted = MenuOptions.RESTART;
-                case MAIN_MENU -> highlighted = MenuOptions.SETTINGS;
+                case MAIN_MENU -> highlighted = MenuOptions.RESTART;
                 case QUIT -> highlighted = MenuOptions.MAIN_MENU;
                 case CONTINUE -> highlighted = MenuOptions.QUIT;
             }
@@ -176,11 +168,6 @@ public class PauseMenu implements DrawListener {
                     y = (height / 2) - 138 + 20;
                     scales[1] = 8;
                 }
-                case SETTINGS -> {
-                    dx = (34 * 4) + 20;
-                    y = (height / 2) - 18 + 20;
-                    scales[2] = 8;
-                }
                 case MAIN_MENU -> {
                     dx = (43 * 4) + 20;
                     y = (height / 2) + 102 + 20;
@@ -198,7 +185,6 @@ public class PauseMenu implements DrawListener {
             }
             panel.addImage((width / 2) - (38 * (scales[0] / 2)), (height / 2) - 258, 38 * scales[0], 5 * scales[0], "/pong/Continue.png");
             panel.addImage((width / 2) - (29 * (scales[1] / 2)), (height / 2) - 138, 29 * scales[1], 5 * scales[1], "/pong/Restart.png");
-            panel.addImage((width / 2) - (34 * (scales[2] / 2)), (height / 2) - 18, 34 * scales[2], 5 * scales[2],"/pong/Settings.png");
             panel.addImage((width / 2) - (43 * (scales[3] / 2)), (height / 2) + 102, 43 * scales[3], 5 * scales[3],"/pong/MainMenu.png");
             panel.addImage((width / 2) - (17 * (scales[4] / 2)), (height / 2) + 222, 17 * scales[4], 5 * scales[4],"/pong/Quit.png");
         }
