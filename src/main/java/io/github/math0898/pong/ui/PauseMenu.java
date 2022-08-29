@@ -160,22 +160,22 @@ public class PauseMenu implements DrawListener {
             switch (highlighted) {
                 case CONTINUE -> {
                     dx = (38 * 4) + 20;
-                    y = (height / 2) - 258 + 20;
+                    y = (height / 2) - 198 + 20;
                     scales[0] = 8;
                 }
                 case RESTART -> {
                     dx = (29 * 4) + 20;
-                    y = (height / 2) - 138 + 20;
+                    y = (height / 2) - 78 + 20;
                     scales[1] = 8;
                 }
                 case MAIN_MENU -> {
                     dx = (43 * 4) + 20;
-                    y = (height / 2) + 102 + 20;
+                    y = (height / 2) + 42 + 20;
                     scales[3] = 8;
                 }
                 case QUIT -> {
                     dx = (17 * 4) + 20;
-                    y = (height / 2) + 222 + 20;
+                    y = (height / 2) + 162 + 20;
                     scales[4] = 8;
                 }
             }
@@ -183,10 +183,10 @@ public class PauseMenu implements DrawListener {
                 panel.setBigPixel((width / 2) + dx, y + dy, 8, Color.WHITE);
                 panel.setBigPixel((width / 2) - dx, y + dy, 8, Color.WHITE);
             }
-            panel.addImage((width / 2) - (38 * (scales[0] / 2)), (height / 2) - 258, 38 * scales[0], 5 * scales[0], "/pong/Continue.png");
-            panel.addImage((width / 2) - (29 * (scales[1] / 2)), (height / 2) - 138, 29 * scales[1], 5 * scales[1], "/pong/Restart.png");
-            panel.addImage((width / 2) - (43 * (scales[3] / 2)), (height / 2) + 102, 43 * scales[3], 5 * scales[3],"/pong/MainMenu.png");
-            panel.addImage((width / 2) - (17 * (scales[4] / 2)), (height / 2) + 222, 17 * scales[4], 5 * scales[4],"/pong/Quit.png");
+            panel.addImage((width / 2) - (38 * (scales[0] / 2)), (height / 2) - 198, 38 * scales[0], 5 * scales[0], "/pong/Continue.png");
+            panel.addImage((width / 2) - (29 * (scales[1] / 2)), (height / 2) - 78, 29 * scales[1], 5 * scales[1], "/pong/Restart.png");
+            panel.addImage((width / 2) - (43 * (scales[3] / 2)), (height / 2) + 42, 43 * scales[3], 5 * scales[3],"/pong/MainMenu.png");
+            panel.addImage((width / 2) - (17 * (scales[4] / 2)), (height / 2) + 162, 17 * scales[4], 5 * scales[4],"/pong/Quit.png");
         }
     }
 }
