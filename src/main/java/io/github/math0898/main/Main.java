@@ -47,7 +47,8 @@ public class Main {
     public static void main (String[] args) throws IOException {
         GameEngine.getLogger().log("Launcher: Starting game launcher...");
         JFrame frame = new JFrame();
-        frame.setSize(1024, 547);
+        JPanel panel = new JPanel();
+        frame.setSize(480, 395);
         frame.setLocationRelativeTo(null);
         frame.setTitle("Game Suite Launcher");
         JButton loz = new JButton("", new ImageIcon(ImageIO.read(Main.class.getResource("/loz/Poster.png"))));
@@ -66,14 +67,17 @@ public class Main {
         });
         pong.setBorder(BorderFactory.createEmptyBorder());
         pong.setContentAreaFilled(true);
-        frame.setLayout(new GridBagLayout());
+        panel.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
         c.gridx = 0;
-        frame.add(loz, c);
+        c.insets = new Insets(0, 10, 0, 10);
+        panel.add(loz, c);
         c.gridx = 1;
-        frame.add(pong, c);
+        panel.add(pong, c);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setBackground(Color.BLACK);
+        panel.setBackground(Color.BLACK);
+        frame.add(panel);
         frame.setUndecorated(false);
         frame.setVisible(true);
         GameEngine.getLogger().log("Launcher: Launcher started.");
