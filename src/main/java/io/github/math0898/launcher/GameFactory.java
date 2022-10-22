@@ -1,4 +1,4 @@
-package io.github.math0898.main;
+package io.github.math0898.launcher;
 
 import io.github.math0898.loz.LOZGame;
 import io.github.math0898.pong.PongGame;

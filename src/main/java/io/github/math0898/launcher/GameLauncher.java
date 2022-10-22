@@ -1,4 +1,4 @@
-package io.github.math0898.main;
+package io.github.math0898.launcher;
 
 import suga.engine.GameEngine;
 import suga.engine.game.Game;
@@ -8,7 +8,6 @@ import suga.engine.input.keyboard.StackGameKeyListener;
 import suga.engine.input.mouse.BasicMouseListener;
 import suga.engine.logger.Level;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
@@ -19,7 +18,7 @@ import java.util.Objects;
  *
  * @author Sugaku
  */
-public class Main {
+public class GameLauncher {
 
     /**
      * Runs a game included in the sweet depending on arguments.
@@ -44,27 +43,21 @@ public class Main {
      *
      * @param args The arguments given to the java program.
      */
-    public static void main (String[] args) throws IOException {
+    public static void main (String[] args) {
         GameEngine.getLogger().log("Launcher: Starting game launcher...");
         JFrame frame = new JFrame();
         JPanel panel = new JPanel();
         frame.setSize(480, 395);
         frame.setLocationRelativeTo(null);
         frame.setTitle("Game Suite Launcher");
-        JButton loz = new JButton("", new ImageIcon(ImageIO.read(Main.class.getResource("/loz/Poster.png"))));
-        loz.setBorder(BorderFactory.createEmptyBorder());
-        loz.setContentAreaFilled(true);
-        loz.addActionListener((e) -> {
-            startGame(new String[]{ "LOZ" });
-            GameEngine.getLogger().log("Launcher: Hiding game launcher.");
-            frame.setVisible(false);
-        });
-        JButton pong = new JButton("" , new ImageIcon(ImageIO.read(Main.class.getResource("/pong/Poster.png"))));
-        pong.addActionListener((e) -> {
-            startGame(new String[]{ "PONG" });
-            GameEngine.getLogger().log("Launcher: Hiding game launcher.");
-            frame.setVisible(false);
-        });
+        LaunchGameButtonBuilder buttonBuilder = new LaunchGameButtonBuilder();
+        buttonBuilder.addIcon("/loz/Poster.png");
+        buttonBuilder.setArgument("LOZ");
+        buttonBuilder.setJFrame(frame);
+        JButton loz = buttonBuilder.createButton();
+        buttonBuilder.addIcon("/pong/Poster.png");
+        buttonBuilder.setArgument("PONG");
+        JButton pong = buttonBuilder.createButton();
         pong.setBorder(BorderFactory.createEmptyBorder());
         pong.setContentAreaFilled(true);
         panel.setLayout(new GridBagLayout());
@@ -75,7 +68,6 @@ public class Main {
         c.gridx = 1;
         panel.add(pong, c);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setBackground(Color.BLACK);
         panel.setBackground(Color.BLACK);
         frame.add(panel);
         frame.setUndecorated(false);
