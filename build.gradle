@@ -12,7 +12,7 @@ repositories {
     mavenCentral()
     maven {
         name = "GitHubPackages"
-        url = uri("https://maven.pkg.github.com/math0898/GraphicsEngine")
+        url = uri("https://maven.pkg.github.com/math0898/SugaEngine")
         credentials {
             username = project.findProperty("gpr.user") ?: secrets.getProperty("USERNAME")
             password = project.findProperty("gpr.key") ?: secrets.getProperty("TOKEN")
