@@ -79,6 +79,7 @@ public class LaunchGameButtonBuilder {
         button.setBorder(BorderFactory.createEmptyBorder());
         button.setContentAreaFilled(true);
         final String a = arg;
+        final JFrame frame = this.frame;
         button.addActionListener((e) -> {
             GameLauncher.startGame(new String[]{ a }); // todo This feels funny to me.
             GameEngine.getLogger().log("Launcher: Hiding game launcher.");
