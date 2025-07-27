@@ -55,10 +55,10 @@ public class MainGame implements Scene {
     public void keyboardInput (KeyValue key, boolean pressed) {
         if (pressed) {
             switch (key) {
-                case W -> playerVelocity = new Vector(0, -1, 0);
-                case S -> playerVelocity = new Vector(0, 1, 0);
-                case A -> playerVelocity = new Vector(-1, 0, 0);
-                case D -> playerVelocity = new Vector(1, 0, 0);
+                case ARROW_UP -> playerVelocity = new Vector(0, -1, 0);
+                case ARROW_DOWN -> playerVelocity = new Vector(0, 1, 0);
+                case ARROW_LEFT -> playerVelocity = new Vector(-1, 0, 0);
+                case ARROW_RIGHT -> playerVelocity = new Vector(1, 0, 0);
             }
             Player player = (Player) game.getGameObject("Player");
             player.setVelocity(playerVelocity);

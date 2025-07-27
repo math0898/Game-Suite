@@ -9,6 +9,7 @@ import suga.engine.input.mouse.BasicMouseListener;
 import suga.engine.logger.Level;
 
 import java.awt.*;
+import java.awt.event.KeyListener;
 import java.util.Objects;
 
 /**
@@ -34,5 +35,14 @@ public class Main extends GameEngine {
         GameEngine.launchGameWindow(size.width, size.height, "SugaEngine - " + target, false,
                 panel, Color.BLACK, 60, 60, new StackGameKeyListener(), new BasicMouseListener(), game);
         game.loadScene(Objects.equals(target, "PONG") ? "Main Menu" : "Title Screen"); // todo: Do games need a start method to call the first scene?
+    }
+
+    /**
+     * Assigns a new KeyListener to the JFrame.
+     *
+     * @param keyListener The KeyListener to apply to the GameWindow's JFrame.
+     */
+    public static void registerKeyListener (KeyListener keyListener) {
+        frame.addKeyListener(keyListener);
     }
 }
