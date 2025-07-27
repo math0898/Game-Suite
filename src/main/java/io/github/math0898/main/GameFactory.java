@@ -2,6 +2,7 @@ package io.github.math0898.main;
 
 import io.github.math0898.loz.LOZGame;
 import io.github.math0898.pong.PongGame;
+import io.github.math0898.tron.TronGame;
 import suga.engine.game.Game;
 
 /**
@@ -20,6 +21,7 @@ public class GameFactory {
         return switch (target) {
             case "LOZ" -> new LOZGame();
             case "PONG" -> new PongGame();
+            case "TRON" -> new TronGame();
             default -> null;
         };
     }

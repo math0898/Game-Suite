@@ -28,7 +28,7 @@ public class Main extends GameEngine {
         GraphicsPanel panel = new Graphics2d();
         Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
         GameFactory factory = new GameFactory();
-        String target = "LOZ";
+        String target = "TRON";
         if (args.length > 0) target = args[0];
         Game game = factory.createGame(target);
         GameEngine.launchGameWindow(size.width, size.height, "SugaEngine - " + target, false,
