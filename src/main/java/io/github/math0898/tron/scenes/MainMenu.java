@@ -1,5 +1,6 @@
 package io.github.math0898.tron.scenes;
 
+import io.github.math0898.tron.TronGame;
 import io.github.math0898.tron.ui.MainMenuDrawer;
 import suga.engine.GameEngine;
 import suga.engine.game.Game;
@@ -17,6 +18,11 @@ import java.awt.*;
 public class MainMenu implements Scene {
 
     /**
+     * The game that this MainMenu is a part of. Used to interact with settings and load the game.
+     */
+    private TronGame game;
+
+    /**
      * Loads this scene into the given game.
      *
      * @param game The game to load this scene into.
@@ -25,6 +31,8 @@ public class MainMenu implements Scene {
     @Override
     public boolean load (Game game) {
         GameEngine.getLogger().log("MainMenu: Loaded main menu.", Level.DEBUG);
+        if (game instanceof TronGame tron) this.game = tron;
+        assert this.game != null;
         game.addDrawingListener(new MainMenuDrawer());
         return true;
     }
@@ -37,7 +45,7 @@ public class MainMenu implements Scene {
      */
     @Override
     public void keyboardInput (KeyValue key, boolean pressed) {
-
+        if (!pressed) game.loadScene("Main Game");
     }
 
     /**
